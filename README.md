@@ -6,9 +6,9 @@
 
 #### Routes
 
-`/login`: [Post]
-`/register`: [Post]
-`/secret`: `protected` [Get] 
+- `/login`
+- `/register`
+- `/secret`: `protected` 
 
 - Protected routes: `{ headers:{ authorization: <Token> }` the token will expire in 10 minutes.
 
