@@ -1,4 +1,4 @@
-### API REST (starter without database client)
+### API REST ( Minimalism starter without database client)
 
 - Nodejs
 - Express
@@ -16,7 +16,6 @@
 
 - Add database client
 - Integrate docker
-- Add middleware authentification
 
 #### Development
 
