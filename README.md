@@ -16,7 +16,6 @@
 
 - Add database client
 - Integrate docker
-- There is already
 - Add middleware authentification
 
 #### Development
