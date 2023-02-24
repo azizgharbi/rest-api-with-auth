@@ -1,10 +1,9 @@
 const router = require("express").Router();
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 // User Service
 import userService from "./service";
-// Secret Key
-const JWT_SECRET = "your_secret_key_here";
+// Middleware
+import { checkAuthMiddleware } from "../middlewares";
 
 router.post("/register", async (req: Request, res: Response) => {
 	try {
@@ -34,22 +33,8 @@ router.post("/login", async (req: Request, res: Response) => {
 	}
 });
 
-router.get("/secret", (req: Request, res: Response) => {
-	// Middleware to check the token
-	const token = req.headers.authorization;
-	if (token) {
-		jwt.verify(token, JWT_SECRET, (err, decoded) => {
-			if (err) {
-				res.status(401).json({ message: "Invalid token" });
-			} else {
-				res.json({ message: "You have access to the secret resource" });
-			}
-		});
-	} else {
-		res.status(401).json({
-			message: "Invalid token",
-		});
-	}
+router.get("/secret", checkAuthMiddleware, (req: Request, res: Response) => {
+	res.json({ message: "You have access to the secret resource" });
 });
 
 router.get("/", async (req: Request, res: Response) => {
