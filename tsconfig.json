@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "target": "ES2018",
+      "module": "commonjs",
+      "lib": ["es6", "dom"],
+      "sourceMap": true,
+      "outDir": "./dist",
+      "esModuleInterop": true,
+      "strict": true
+    },
+    "exclude": ["node_modules"]
+}
