@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-const JWT_SECRET = "your_secret_key_here";
+import {JWT_SECRET} from "../config"
 
 export const checkAuthMiddleware = (
 	req: Request,
