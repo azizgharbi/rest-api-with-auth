@@ -8,6 +8,6 @@ const app = express();
 app.use(bp.json());
 app.use("/api/v1/user", userRoutes);
 
-app.listen(3000, () => {
-	console.log("Server listening on port 3000");
+app.listen(5000, () => {
+	console.log("Server listening on port 5000");
 });
