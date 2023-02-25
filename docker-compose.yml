@@ -8,5 +8,5 @@ services:
     environment:
       PORT: 5000
     volumes:
-      - ".:/my-app"
+      - ".:/app"
     command: npm run start

@@ -1,9 +1,13 @@
-FROM node:14.15.1
-WORKDIR /my-app
+FROM node:16-alpine
+
+WORKDIR /app
+
 COPY package.json package.json
-RUN apt update
+
 RUN npm install
-# Bundle app source
+
 COPY . .
+
 RUN npm run build
-EXPOSE 5000
+
+CMD ["npm", "start"]
