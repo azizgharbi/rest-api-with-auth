@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 // Secret Key
-import {JWT_SECRET} from "../config"
+import { JWT_SECRET } from "../config";
 
 interface User {
 	id: string;
