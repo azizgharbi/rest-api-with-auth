@@ -14,10 +14,13 @@
 
 #### Nice to have
 
-- Add database client
-- Integrate docker
+- Database client
+- docker container
+- Validation and logging 
+- cdk to deploy for aws 
 
 #### Development
 
 - `yarn run watch`
 - `yarn run dev`  
+- `yarn run format`
