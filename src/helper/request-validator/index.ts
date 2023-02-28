@@ -16,11 +16,11 @@ export function validateRequest() {
 			res: Response,
 			next: NextFunction,
 		) {
+			// Validate here on the request body depends on http methode
+			console.log(req.body)
 			return originalMethod
 				.call(this, req, res, next)
 				.then((data: any) => {
-					//work in progress
-					console.log(data);
 					return data;
 				})
 				.catch((errorMessage: Error) => {
