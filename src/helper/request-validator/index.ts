@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 
+/*
+ * Validate request body request query params
+ */
+
 export function validateRequest() {
 	return function (
 		_target: any,
@@ -15,7 +19,7 @@ export function validateRequest() {
 			return originalMethod
 				.call(this, req, res, next)
 				.then((data: any) => {
-					//validate data
+					//work in progress
 					console.log(data);
 					return data;
 				})
