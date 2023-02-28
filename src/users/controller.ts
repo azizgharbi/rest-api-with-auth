@@ -1,52 +1,59 @@
 import { Request, Response } from "express";
 import userService from "./service";
+// handlers
+import { ControllerMethodHandler } from "../helper/handler";
 
 class UserController {
 	/*
-	 * User controller
+	 * method: register
 	 */
-
+	@ControllerMethodHandler
 	async register(req: Request, res: Response) {
 		try {
 			const { username, email, password } = req.body;
-			await userService.register(username, email, password);
-			return res.status(200).json({
-				response: "done",
-			});
-		} catch (error) {
-			return res.status(500).json({
-				error,
-			});
+			const user = await userService.register(username, email, password);
+			return user;
+		} catch (error: any) {
+			throw error.message;
 		}
 	}
+
+	/*
+	 * method: login
+	 */
+	@ControllerMethodHandler
 	async login(req: Request, res: Response) {
 		try {
 			const { username, password } = req.body;
 			const token = await userService.login(username, password);
-			return res.status(200).json({
-				token,
-			});
-		} catch (error) {
-			return res.status(500).json({
-				errorMessage: error,
-			});
+			return token;
+		} catch (error: any) {
+			throw error.errorMessage;
 		}
 	}
 
-	secret(req: Request, res: Response) {
-		res.json({ message: "You have access to the secret resource" });
+	/*
+	 * method: secret
+	 */
+	@ControllerMethodHandler
+	async secret(req: Request, res: Response) {
+		try {
+			return "You have access to this ressorces";
+		} catch (error: any) {
+			throw error.errorMessage;
+		}
 	}
 
-	getAllUsers(req: Request, res: Response) {
+	/*
+	 * method: getAllUsers
+	 */
+	@ControllerMethodHandler
+	async getAllUsers(req: Request, res: Response) {
 		try {
-			const users = userService.getAllusers();
-			return res.status(200).json({
-				users,
-			});
-		} catch (error) {
-			return res.status(500).json({
-				error,
-			});
+			const users = await userService.getAllusers();
+			return users;
+		} catch (error: any) {
+			throw error.errorMessage;
 		}
 	}
 }

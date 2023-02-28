@@ -11,12 +11,17 @@ export const checkAuthMiddleware = (
 	if (token) {
 		jwt.verify(token, JWT_SECRET, (err, decoded) => {
 			if (err) {
-				res.status(401).json({ message: "Invalid token" });
+				res.status(401).json({
+					errorMessage: "Invalid token",
+					response: "Failed",
+				});
 			} else {
 				next();
 			}
 		});
 	} else {
-		res.status(401).json({ message: "Authentication required" });
+		res
+			.status(401)
+			.json({ errMessage: "Authentication required", reponse: "Failed" });
 	}
 };

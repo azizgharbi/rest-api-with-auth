@@ -16,7 +16,7 @@
 
 - Database client
 - docker container
-- Validation and logging 
+- Validation and logging (work in progress) 
 - cdk to deploy for aws 
 
 #### Development
@@ -24,3 +24,7 @@
 - `yarn run watch`
 - `yarn run dev`  
 - `yarn run format`
+
+### Feature
+
+- `@ControllerMethodHandler`: Decorator function to handle/standardize the reponse (controller methods should be `async`)
