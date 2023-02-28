@@ -10,7 +10,7 @@ class UserController {
 	 */
 
 	@ControllerMethodHandler
-	@validateRequest()
+	@validateRequest(/*Schema validator */)
 	async register(req: Request, res: Response) {
 		try {
 			const { username, email, password } = req.body;
