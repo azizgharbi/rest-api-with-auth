@@ -15,7 +15,7 @@ export function ControllerMethodHandler(
 		res: Response,
 		next: NextFunction,
 	) {
-		originalMethod
+		return originalMethod
 			.call(this, req, res, next)
 			.then((data: any) => {
 				return res.status(200).json({

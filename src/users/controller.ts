@@ -1,13 +1,16 @@
 import { Request, Response } from "express";
 import userService from "./service";
-// handlers
+// helpers
 import { ControllerMethodHandler } from "../helper/handler";
+import { validateRequest } from "../helper/request-validator";
 
 class UserController {
 	/*
 	 * method: register
 	 */
+
 	@ControllerMethodHandler
+	@validateRequest()
 	async register(req: Request, res: Response) {
 		try {
 			const { username, email, password } = req.body;

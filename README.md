@@ -1,8 +1,8 @@
 ### API REST ( Minimalism starter without database client)
 
-- Nodejs
-- Express
-- Typescript
+- `Nodejs`
+- `Express`
+- `Typescript`
 
 #### Routes
 
@@ -14,10 +14,10 @@
 
 #### Nice to have
 
-- Database client
-- docker container
-- Validation and logging (work in progress) 
-- cdk to deploy for aws 
+- Database client.
+- docker container.
+- Validation and logging (work in progress).
+- cdk to deploy for aws.
 
 #### Development
 
@@ -27,4 +27,6 @@
 
 ### Feature
 
-- `@ControllerMethodHandler`: Decorator function to handle/standardize the reponse (controller methods should be `async`)
+- `@ControllerMethodHandler`: Decorator function to handle/standardize the reponse (controller methods should be `async`).
+
+- `@validateRequest` : Work in progress.
