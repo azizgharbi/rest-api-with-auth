@@ -25,7 +25,7 @@
 - `yarn run dev`  
 - `yarn run format`
 
-### Feature
+### Features
 
 - `@ControllerMethodHandler`: Decorator function to handle/standardize the reponse (controller methods should be `async`).
 
