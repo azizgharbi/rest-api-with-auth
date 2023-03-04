@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from "express";
  * Validate request body request query params
  */
 
-export function validateRequest() {
+export function validateBodyRequest() {
 	return function (
 		_target: any,
 		_propertyKey: string,
