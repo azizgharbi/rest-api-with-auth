@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request } from "express";
 import userService from "./service";
 // helpers
 import { ControllerMethodHandler } from "../helper/handler";
@@ -10,8 +10,8 @@ class UserController {
 	 */
 
 	@ControllerMethodHandler
-	@validateRequest(/*Schema validator */)
-	async register(req: Request, res: Response) {
+  @validateRequest(/*Schema validator */)
+	async register(req: Request) {
 		try {
 			const { username, email, password } = req.body;
 			const user = await userService.register(username, email, password);
@@ -25,7 +25,7 @@ class UserController {
 	 * method: login
 	 */
 	@ControllerMethodHandler
-	async login(req: Request, res: Response) {
+	async login(req: Request) {
 		try {
 			const { username, password } = req.body;
 			const token = await userService.login(username, password);
@@ -39,7 +39,7 @@ class UserController {
 	 * method: secret
 	 */
 	@ControllerMethodHandler
-	async secret(req: Request, res: Response) {
+	async secret() {
 		try {
 			return "You have access to this ressorces";
 		} catch (error: any) {
@@ -51,7 +51,7 @@ class UserController {
 	 * method: getAllUsers
 	 */
 	@ControllerMethodHandler
-	async getAllUsers(req: Request, res: Response) {
+	async getAllUsers() {
 		try {
 			const users = await userService.getAllusers();
 			return users;

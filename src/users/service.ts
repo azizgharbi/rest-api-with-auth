@@ -57,8 +57,10 @@ class UserService {
 		return token;
 	}
 
-	getAllusers(): User[] {
-		return this.users;
+	getAllusers(): Promise<User[]> {
+		return new Promise((resolve) => {
+			resolve(this.users);
+		});
 	}
 
 	async findByUsername(username: string): Promise<User | undefined> {
