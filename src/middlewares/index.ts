@@ -9,7 +9,7 @@ export const checkAuthMiddleware = (
 ) => {
 	const token = req.headers.authorization;
 	if (token) {
-		jwt.verify(token, JWT_SECRET, (err, decoded) => {
+		jwt.verify(token, JWT_SECRET, (err, _decoded) => {
 			if (err) {
 				res.status(401).json({
 					errorMessage: "Invalid token",
