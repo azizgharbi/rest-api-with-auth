@@ -2,7 +2,7 @@ import { Router } from "express";
 // User Controller
 import userController from "./controller";
 // Middleware
-import { checkAuthMiddleware } from "../middlewares";
+import { checkAuthMiddleware } from "../../middlewares";
 
 const router = Router();
 
