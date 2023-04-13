@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { prisma } from "./../../config";
 
 /*
  * Handle controller method to standardize reponse
@@ -23,13 +24,18 @@ export function ControllerMethodHandler(
 					response: "Success",
 				});
 			})
-			.catch((errorMessage: Error) => {
-				console.error(`Error in ${req.method} ${req.path}: ${errorMessage}`);
+			.catch((error: Error) => {
+				console.error("Error in :", {
+					method: req.method,
+					path: req.path,
+					error: error.message,
+				});
 				return res.status(500).json({
-					errorMessage,
+					error: error.message,
 					response: "Failed",
 				});
-			});
+			})
+			.finally(() => prisma.$disconnect());
 	};
 
 	return descriptor;
