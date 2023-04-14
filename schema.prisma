@@ -9,13 +9,8 @@ generator client {
 
 model User {
   id       Int    @id @default(autoincrement())
-  role     Role   @default(Customer)
   email    String @unique
   name     String
   password String
 }
 
-enum Role {
-  Creator
-  Customer
-}
