@@ -1,27 +1,32 @@
-import { Request, Response, NextFunction } from "express";
+import { Request } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../../config";
 
-export const checkAuthMiddleware = (
-	req: Request,
-	res: Response,
-	next: NextFunction,
-) => {
-	const token = req.headers.authorization;
-	if (token) {
-		jwt.verify(token, JWT_SECRET, (err, _decoded) => {
-			if (err) {
-				res.status(401).json({
-					errorMessage: "Invalid token",
-					response: "Failed",
-				});
+export function expressAuthentication(
+	request: Request,
+	securityName: string,
+	roles?: string[],
+) {
+	if (securityName === "jwt") {
+		const token = request.headers.authorization;
+		return new Promise((resolve, reject) => {
+			if (!token) {
+				reject(new Error("No token provided"));
 			} else {
-				next();
+				jwt.verify(token, JWT_SECRET, function (err: any, decoded: any) {
+					if (err) {
+						reject(err);
+					} else {
+						// Check if JWT contains all required scopes
+						//   for (let role of roles) {
+						//     if (!decoded.roles.includes(role)) {
+						//       reject(new Error("JWT does not contain required scope."));
+						//     }
+						//   }
+						resolve(decoded);
+					}
+				});
 			}
 		});
-	} else {
-		res
-			.status(401)
-			.json({ errMessage: "Authentication required", reponse: "Failed" });
 	}
-};
+}

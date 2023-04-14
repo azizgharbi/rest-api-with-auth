@@ -1,4 +1,4 @@
-### Rest api with prisma orm
+### Backend
 
 - `Nodejs`
 - `Express`
@@ -6,27 +6,27 @@
 
 #### Routes
 
-- `/login`
-- `/register`
-- `/secret`: `protected` 
+- `/api/v1/user`
+- `/api/v1/login`
+- `/api/v1/register`
+- `/api/v1/secret`: `protected` 
 
 - Protected routes: `{ headers:{ authorization: <Token> }` the token will expire in 10 minutes.
 
-#### Development
+#### Development:
 
 - `yarn run watch`
 - `yarn run dev`  
 - `yarn run format`
 
-### Features
+### Routes and validations docs is using `tsoa`
 
-- `@ControllerMethodHandler`: Decorator function to handle/standardize the reponse (controller methods should be `async`).
-
-- `@validateRequest` : Work in progress.
+- Swagger : `http://localhost:5000/api-docs`
+- `yarn tsoa spec-and-routes`
 
 ### Database:
 
-Database client postgres with (https://www.prisma.io/)
+Database client Postgres with (https://www.prisma.io/)
 
 Under folder database:
 

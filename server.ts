@@ -1,19 +1,28 @@
-import express from "express";
-import bp from "body-parser";
+import express, { json, urlencoded } from "express";
 import swaggerUi from "swagger-ui-express";
-import swaggerJsdoc from "swagger-jsdoc";
-import { swaggerOptions } from "./options";
+import path from "path";
 
-const swaggerSpec = swaggerJsdoc(swaggerOptions);
+import { RegisterRoutes } from "./build/routes";
+import { errorHandler } from "./src/middlewares/errors";
 
-// Routes
-import UserRoutes from "./src/app/users/routes";
+const openApiDocumentation = require(path.join(
+	__dirname,
+	"../dist/openapi/swagger.json",
+));
 
 const app = express();
+// Use body parser to read sent json payloads
+app.use(
+	urlencoded({
+		extended: true,
+	}),
+);
+app.use(json());
+RegisterRoutes(app);
 
-app.use(bp.json());
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/api/v1/user", UserRoutes);
+app.use(errorHandler);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocumentation));
 
 app.listen(5000, () => {
 	console.log("Server listening on port 5000");
