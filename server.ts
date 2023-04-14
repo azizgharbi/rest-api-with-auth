@@ -16,5 +16,5 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/v1/user", UserRoutes);
 
 app.listen(5000, () => {
-  console.log("Server listening on port 5000");
+	console.log("Server listening on port 5000");
 });

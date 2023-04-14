@@ -64,7 +64,7 @@ class UserService {
 
   async getAllusers(): Promise<User[]> {
     try {
-      const users = await prisma.user.findMany() as User[];
+      const users = (await prisma.user.findMany()) as User[];
       return users;
     } catch (error: any) {
       throw error;
@@ -72,8 +72,8 @@ class UserService {
   }
 
   async findUserByEmail(email: string): Promise<User | undefined> {
-    const user = await prisma.user.findUnique({ where: { email } }) as User;
-    if (user) return user
+    const user = (await prisma.user.findUnique({ where: { email } })) as User;
+    if (user) return user;
     return undefined;
   }
 
