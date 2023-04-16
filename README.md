@@ -1,4 +1,4 @@
-### Backend
+### Minimalistic starter using `tsoa` and `express`
 
 - `Nodejs`
 - `Express`
