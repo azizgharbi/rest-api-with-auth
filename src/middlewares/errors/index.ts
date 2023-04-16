@@ -1,15 +1,31 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, Request, NextFunction } from "express";
+import { ValidateError } from "tsoa";
+import { JsonWebTokenError } from "jsonwebtoken";
 
 export function errorHandler(
-	err: Error,
-	_req: Request,
+	error: unknown,
+	req: Request,
 	res: Response,
-	_next: NextFunction,
-): void {
-	if (err instanceof Error) {
-		res.status(500).json({ error: err.message });
-	} else {
-		console.error(err);
-		res.status(500).json({ error: "Internal server error" });
+	next: NextFunction,
+): Response | void {
+	if (error instanceof JsonWebTokenError) {
+		return res.status(401).json({
+			error: error.message,
+		});
 	}
+
+	if (error instanceof ValidateError) {
+		return res.status(422).json({
+			message: "Validation Failed",
+			details: error?.fields,
+		});
+	}
+
+	if (error instanceof Error) {
+		return res.status(500).json({
+			message: error.message,
+		});
+	}
+
+	next();
 }

@@ -6,45 +6,30 @@ import userService from "./service";
 @Route("/api/v1/user")
 export class UserController {
 	/*
-	 * User COntroller
+	 * User Controller
 	 */
+
+	@Get()
+	async getAllUsers() {
+		const users = await userService.getAllusers();
+		return users;
+	}
+
 	@Post("/register")
 	async register(@Body() requestBody: RegisterRequest) {
-		try {
-			const user = await userService.register(requestBody);
-			return user;
-		} catch (error: any) {
-			throw new Error(error);
-		}
+		const user = await userService.register(requestBody);
+		return user;
 	}
 
 	@Post("/login")
 	async login(@Body() requesBody: LogionRequest) {
-		try {
-			const token = await userService.login(requesBody);
-			return token;
-		} catch (error: any) {
-			throw new Error(error);
-		}
+		const token = await userService.login(requesBody);
+		return token;
 	}
 
 	@Security("jwt")
   @Get("/secret")
 	async secret() {
-		try {
-			return { message: "You have access to this ressorces" };
-		} catch (error: any) {
-			throw new Error(error);
-		}
-	}
-
-	@Get()
-	async getAllUsers() {
-		try {
-			const users = await userService.getAllusers();
-			return users;
-		} catch (error: any) {
-			throw new Error(error);
-		}
+		return { message: "You have access to this ressorces" };
 	}
 }

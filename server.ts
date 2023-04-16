@@ -7,11 +7,11 @@ import { errorHandler } from "./src/middlewares/errors";
 
 const openApiDocumentation = require(path.join(
 	__dirname,
-	"../dist/openapi/swagger.json",
+	"../build/swagger.json",
 ));
 
 const app = express();
-// Use body parser to read sent json payloads
+
 app.use(
 	urlencoded({
 		extended: true,

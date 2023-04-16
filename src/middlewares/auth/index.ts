@@ -6,7 +6,7 @@ export function expressAuthentication(
 	request: Request,
 	securityName: string,
 	roles?: string[],
-) {
+): Promise<any> {
 	if (securityName === "jwt") {
 		const token = request.headers.authorization;
 		return new Promise((resolve, reject) => {
@@ -15,18 +15,22 @@ export function expressAuthentication(
 			} else {
 				jwt.verify(token, JWT_SECRET, function (err: any, decoded: any) {
 					if (err) {
-						reject(err);
+						reject(new jwt.JsonWebTokenError(err));
 					} else {
-						// Check if JWT contains all required scopes
-						//   for (let role of roles) {
-						//     if (!decoded.roles.includes(role)) {
-						//       reject(new Error("JWT does not contain required scope."));
-						//     }
-						//   }
+						// Check if JWT contains all required roles
+						if (roles) {
+							for (let role of roles) {
+								if (!decoded.roles.includes(role)) {
+									reject(new Error("JWT does not contain required scope."));
+								}
+							}
+						}
 						resolve(decoded);
 					}
 				});
 			}
 		});
+	} else {
+		throw new Error("Something wrong");
 	}
 }

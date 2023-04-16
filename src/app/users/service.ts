@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET, prisma } from "../../config";
 import { RegisterRequest, LogionRequest, Token, Role } from "./types";
 import { User } from "@prisma/client";
+import { ValidateError } from "tsoa";
 
 class UserService {
 	/*
@@ -28,7 +29,7 @@ class UserService {
 			});
 			return new_user;
 		} catch (error: any) {
-			throw error;
+			throw new ValidateError(error, "register method");
 		}
 	}
 
@@ -51,7 +52,7 @@ class UserService {
 
 			return { token };
 		} catch (error: any) {
-			throw error;
+			throw new ValidateError(error, "login method");
 		}
 	}
 
@@ -60,7 +61,7 @@ class UserService {
 			const users = (await prisma.user.findMany()) as User[];
 			return users;
 		} catch (error: any) {
-			throw error;
+			throw new ValidateError(error, "getAllusers method");
 		}
 	}
 
