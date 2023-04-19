@@ -1,14 +1,15 @@
 {
-    "entryFile": "server.ts",
-    "noImplicitAdditionalProperties": "throw-on-extras",
-    "controllerPathGlobs": ["src/app/users/controller.ts"],
-    "spec": {
-      "outputDirectory": "build",
-      "specVersion": 3
-    },
-    "routes": {
-      "routesDir": "build",
-      "authenticationModule": "./src/middlewares/auth/index.ts"
-    }
+  "entryFile": "src/server.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/app/users/controller.ts"
+  ],
+  "spec": {
+    "outputDirectory": "build",
+    "specVersion": 3
+  },
+  "routes": {
+    "routesDir": "build",
+    "authenticationModule": "./src/middlewares/auth/index.ts"
   }
-  
+}

@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET, prisma } from "../../config";
-import { RegisterRequest, LogionRequest, Token, Role } from "./types";
+import { RegisterRequest, LogionRequest, Token } from "./types";
 import { User } from "@prisma/client";
 import { ValidateError } from "tsoa";
 
@@ -17,13 +17,12 @@ class UserService {
 
 	async register(body: RegisterRequest): Promise<User | any> {
 		try {
-			const { password, name, email, role } = body;
+			const { password, name, email } = body;
 			const hashedPassword = await bcrypt.hash(password, 10);
 			const new_user = await prisma.user.create({
 				data: {
 					name,
 					email,
-					role: Role[role],
 					password: hashedPassword,
 				},
 			});
