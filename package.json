@@ -10,6 +10,7 @@
     "start": "node dist/server.js",
     "watch": "tsc -w",
     "format": "yarn rome format . --write",
+    "check": "yarn rome check ./ --apply",
     "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\""
   },
   "dependencies": {
@@ -46,7 +47,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "yarn run format"
+      "yarn run format",
+      "yarn run check"
     ]
   }
 }
