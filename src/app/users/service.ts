@@ -6,94 +6,94 @@ import { User } from "@prisma/client";
 import { FieldErrors, ValidateError } from "tsoa";
 
 class UserService {
-	/*
-	 * Private can be defined here
-	 */
-	constructor() {
-		/*
-		 * Any initialization can be defined here
-		 */
-	}
+  /*
+   * Private can be defined here
+   */
+  constructor() {
+    /*
+     * Any initialization can be defined here
+     */
+  }
 
-	async register(body: RegisterRequest): Promise<User | Error> {
-		try {
-			const { password, name, email } = body;
-			const hashedPassword = await bcrypt.hash(password, 10);
-			const new_user = await prisma.user.create({
-				data: {
-					name,
-					email,
-					password: hashedPassword,
-				},
-			});
-			return new_user;
-		} catch (error: unknown) {
-			throw new ValidateError(error as FieldErrors, "register method");
-		}
-	}
+  async register(body: RegisterRequest): Promise<User | Error> {
+    try {
+      const { password, name, email } = body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const new_user = await prisma.user.create({
+        data: {
+          name,
+          email,
+          password: hashedPassword,
+        },
+      });
+      return new_user;
+    } catch (error: unknown) {
+      throw new ValidateError(error as FieldErrors, "register method");
+    }
+  }
 
-	async login(body: LogionRequest): Promise<Token> {
-		try {
-			const { email, password } = body;
-			const verifiedUser = await this.findUserByEmail(email);
+  async login(body: LogionRequest): Promise<Token> {
+    try {
+      const { email, password } = body;
+      const verifiedUser = await this.findUserByEmail(email);
 
-			if (!verifiedUser) {
-				throw new Error("username or password something woring");
-			}
+      if (!verifiedUser) {
+        throw new Error("username or password something woring");
+      }
 
-			const verifiedPassword = this.verifyPassword(verifiedUser, password);
+      const verifiedPassword = this.verifyPassword(verifiedUser, password);
 
-			if (!verifiedPassword) {
-				throw new Error("username or password something woring");
-			}
+      if (!verifiedPassword) {
+        throw new Error("username or password something woring");
+      }
 
-			const token = this.generateToken(verifiedUser);
+      const token = this.generateToken(verifiedUser);
 
-			return { token };
-		} catch (error: unknown) {
-			throw new ValidateError(error as FieldErrors, "login method");
-		}
-	}
+      return { token };
+    } catch (error: unknown) {
+      throw new ValidateError(error as FieldErrors, "login method");
+    }
+  }
 
-	async getAllusers(): Promise<User[]> {
-		try {
-			const users = (await prisma.user.findMany()) as User[];
-			return users;
-		} catch (error: unknown) {
-			throw new ValidateError(error as FieldErrors, "getAllusers method");
-		}
-	}
+  async getAllusers(): Promise<User[]> {
+    try {
+      const users = (await prisma.user.findMany()) as User[];
+      return users;
+    } catch (error: unknown) {
+      throw new ValidateError(error as FieldErrors, "getAllusers method");
+    }
+  }
 
-	async findUserByEmail(email: string): Promise<User | undefined> {
-		const user = (await prisma.user.findUnique({ where: { email } })) as User;
-		if (user) return user;
-		return undefined;
-	}
+  async findUserByEmail(email: string): Promise<User | undefined> {
+    const user = (await prisma.user.findUnique({ where: { email } })) as User;
+    if (user) return user;
+    return undefined;
+  }
 
-	async verifyPassword(user: User, password: string): Promise<boolean> {
-		return bcrypt.compare(password, user.password);
-	}
+  async verifyPassword(user: User, password: string): Promise<boolean> {
+    return bcrypt.compare(password, user.password);
+  }
 
-	generateToken(user: User): string {
-		const payload = { id: user.id, email: user.email };
-		// Token expire in 10 minutes
-		return jwt.sign(payload, JWT_SECRET, {
-			expiresIn: "10m",
-		});
-	}
+  generateToken(user: User): string {
+    const payload = { id: user.id, email: user.email };
+    // Token expire in 10 minutes
+    return jwt.sign(payload, JWT_SECRET, {
+      expiresIn: "10m",
+    });
+  }
 
-	async verifyToken(token: string): Promise<User | undefined> {
-		try {
-			const payload = jwt.verify(token, JWT_SECRET) as {
-				id: string;
-				email: string;
-			};
+  async verifyToken(token: string): Promise<User | undefined> {
+    try {
+      const payload = jwt.verify(token, JWT_SECRET) as {
+        id: string;
+        email: string;
+      };
 
-			return this.findUserByEmail(payload.email);
-		} catch (err) {
-			return undefined;
-		}
-	}
+      return this.findUserByEmail(payload.email);
+    } catch (err) {
+      return undefined;
+    }
+  }
 }
 
 export default new UserService();

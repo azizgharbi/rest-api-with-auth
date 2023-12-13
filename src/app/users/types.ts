@@ -1,14 +1,14 @@
 export type Token = {
-	token: string;
+  token: string;
 };
 
 export type LogionRequest = {
-	email: string;
-	password: string;
+  email: string;
+  password: string;
 };
 
 export type RegisterRequest = {
-	name: string;
-	email: string;
-	password: string;
+  name: string;
+  email: string;
+  password: string;
 };

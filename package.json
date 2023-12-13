@@ -9,8 +9,6 @@
     "build": "yarn tsoa spec-and-routes && tsc",
     "start": "node dist/server.js",
     "watch": "tsc -w",
-    "format": "yarn rome format . --write",
-    "check": "yarn rome check ./ --apply",
     "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\""
   },
   "dependencies": {
@@ -33,22 +31,8 @@
   "devDependencies": {
     "@types/swagger-jsdoc": "^6.0.1",
     "@types/swagger-ui-express": "^4.1.3",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.1",
     "nodemon": "^2.0.20",
-    "rome": "^11.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "yarn run format",
-      "yarn run check"
-    ]
   }
 }
