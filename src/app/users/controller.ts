@@ -8,7 +8,6 @@ export class UserController {
 	/*
 	 * User Controller
 	 */
-
 	@Get()
 	async getAllUsers() {
 		const users = await userService.getAllusers();

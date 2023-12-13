@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET, prisma } from "../../config";
 import { RegisterRequest, LogionRequest, Token } from "./types";
 import { User } from "@prisma/client";
-import { ValidateError } from "tsoa";
+import { FieldErrors, ValidateError } from "tsoa";
 
 class UserService {
 	/*
@@ -15,7 +15,7 @@ class UserService {
 		 */
 	}
 
-	async register(body: RegisterRequest): Promise<User | any> {
+	async register(body: RegisterRequest): Promise<User | Error> {
 		try {
 			const { password, name, email } = body;
 			const hashedPassword = await bcrypt.hash(password, 10);
@@ -27,8 +27,8 @@ class UserService {
 				},
 			});
 			return new_user;
-		} catch (error: any) {
-			throw new ValidateError(error, "register method");
+		} catch (error: unknown) {
+			throw new ValidateError(error as FieldErrors, "register method");
 		}
 	}
 
@@ -50,8 +50,8 @@ class UserService {
 			const token = this.generateToken(verifiedUser);
 
 			return { token };
-		} catch (error: any) {
-			throw new ValidateError(error, "login method");
+		} catch (error: unknown) {
+			throw new ValidateError(error as FieldErrors, "login method");
 		}
 	}
 
@@ -59,8 +59,8 @@ class UserService {
 		try {
 			const users = (await prisma.user.findMany()) as User[];
 			return users;
-		} catch (error: any) {
-			throw new ValidateError(error, "getAllusers method");
+		} catch (error: unknown) {
+			throw new ValidateError(error as FieldErrors, "getAllusers method");
 		}
 	}
 

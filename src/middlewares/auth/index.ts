@@ -6,7 +6,7 @@ export function expressAuthentication(
 	request: Request,
 	securityName: string,
 	roles?: string[],
-): Promise<any> {
+): Promise<boolean | Error> {
 	if (securityName === "jwt") {
 		const token = request.headers.authorization;
 		return new Promise((resolve, reject) => {

@@ -1,4 +1,4 @@
-### Minimalistic starter using `tsoa` and `express`
+### Minimalistic starter using `tsoa` and `express` (Rapid Implementation)
 
 - `Nodejs`
 - `Express`
@@ -9,14 +9,14 @@
 - `/api/v1/user`
 - `/api/v1/login`
 - `/api/v1/register`
-- `/api/v1/secret`: `protected` 
+- `/api/v1/secret`: `protected`
 
 - Protected routes: `{ headers:{ authorization: <Token> }` the token will expire in 10 minutes.
 
 #### Development:
 
 - `yarn run watch`
-- `yarn run dev`  
+- `yarn run dev`
 - `yarn run format`
 
 ### Routes and validations docs is using `tsoa`
@@ -32,7 +32,7 @@ Under folder database:
 
 - `docker-compose up -d`
 
-Project root: 
+Project root:
 
 - `yarn prisma generate`.
 - `yarn prisma migrate dev`.

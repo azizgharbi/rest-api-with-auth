@@ -17,7 +17,9 @@ app.use(
 		extended: true,
 	}),
 );
+
 app.use(json());
+
 RegisterRoutes(app);
 
 app.use(errorHandler);

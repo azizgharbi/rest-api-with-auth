@@ -7,5 +7,5 @@ services:
       - 5000:5000
     # Dev: run npm build in local
     # volumes:
-      # - ".:/app"
+    # - ".:/app"
     command: "npm run start"
