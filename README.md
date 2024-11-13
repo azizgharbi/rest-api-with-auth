@@ -1,44 +1,59 @@
-### Minimalistic starter using `tsoa` and `express` (Rapid Implementation)
+# Minimalistic Starter with `tsoa` and `express` for Rapid Implementation
 
-- `Nodejs`
-- `Express`
-- `Typescript`
+This starter project is a minimalistic setup using `Node.js`, `Express`, and `TypeScript`, featuring route protection, Swagger documentation, and a PostgreSQL database configured with Prisma.
 
-#### Routes
+## Tech Stack
 
-- `/api/v1/user`
-- `/api/v1/login`
-- `/api/v1/register`
-- `/api/v1/secret`: `protected`
+- **Node.js**
+- **Express**
+- **TypeScript**
 
-- Protected routes: `{ headers:{ authorization: <Token> }` the token will expire in 10 minutes.
+---
 
-#### Development:
+## API Routes
 
-- `yarn run watch`
-- `yarn run dev`
-- `yarn run format`
+### Available Endpoints
 
-### Routes and validations docs is using `tsoa`
+- **Public Routes**
+  - `GET /api/v1/user`
+  - `POST /api/v1/login`
+  - `POST /api/v1/register`
 
-- Swagger : `http://localhost:5000/api-docs`
-- `yarn tsoa spec-and-routes`
+- **Protected Route**
+  - `GET /api/v1/secret` - Requires an authorization token in headers:
+    ```json
+    { "headers": { "authorization": "<Token>" } }
+    ```
+  - Tokens expire after 10 minutes.
 
-### Database:
+---
 
-Database client Postgres with (https://www.prisma.io/)
+## Development
 
-Under folder database:
+Use the following commands for development and formatting:
 
-- `docker-compose up -d`
+- **Watch Mode**: `yarn run watch`
+- **Run in Development**: `yarn run dev`
+- **Format Code**: `yarn run format`
 
-Project root:
+---
 
-- `yarn prisma generate`.
-- `yarn prisma migrate dev`.
+## Documentation
 
-Update migration schema:
+API route and validation documentation are generated with `tsoa`:
 
-- `prisma migrate dev --name add_description`.
-- `prisma migrate reset`.
-- `prisma generate`.
+- **Swagger Documentation**: Accessible at `http://localhost:5000/api-docs`
+- **Generate Spec and Routes**: `yarn tsoa spec-and-routes`
+
+---
+
+## Database Setup
+
+The project uses PostgreSQL with Prisma as the ORM. Follow these steps to set up and manage your database.
+
+### 1. Start Database with Docker
+
+In the `database` directory, run:
+
+```bash
+docker-compose up -d
