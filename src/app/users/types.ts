@@ -2,7 +2,7 @@ export type Token = {
   token: string;
 };
 
-export type LogionRequest = {
+export type LoginRequest = {
   email: string;
   password: string;
 };

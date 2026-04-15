@@ -4,7 +4,7 @@ This starter project is a minimalistic setup using `Node.js`, `Express`, and `Ty
 
 ## Tech Stack
 
-- **Node.js**
+- **Bun**
 - **Express**
 - **TypeScript**
 
@@ -16,13 +16,13 @@ This starter project is a minimalistic setup using `Node.js`, `Express`, and `Ty
 
 - **Public Routes**
   - `GET /api/v1/user`
-  - `POST /api/v1/login`
-  - `POST /api/v1/register`
+  - `POST /api/v1/user/register`
+  - `POST /api/v1/user/login`
 
 - **Protected Route**
-  - `GET /api/v1/secret` - Requires an authorization token in headers:
+  - `GET /api/v1/user/secret` - Requires an authorization token in headers:
     ```json
-    { "headers": { "authorization": "<Token>" } }
+    { "headers": { "authorization": "Bearer <token>" } }
     ```
   - Tokens expire after 10 minutes.
 
@@ -32,9 +32,10 @@ This starter project is a minimalistic setup using `Node.js`, `Express`, and `Ty
 
 Use the following commands for development and formatting:
 
-- **Watch Mode**: `yarn run watch`
-- **Run in Development**: `yarn run dev`
-- **Format Code**: `yarn run format`
+- **Install dependencies**: `bun install`
+- **Watch Mode**: `bun run watch`
+- **Run in Development**: `bun run dev`
+- **Generate Prisma Client**: `bun run prisma:generate`
 
 ---
 
@@ -43,9 +44,13 @@ Use the following commands for development and formatting:
 API route and validation documentation are generated with `tsoa`:
 
 - **Swagger Documentation**: Accessible at `http://localhost:5000/api-docs`
-- **Generate Spec and Routes**: `yarn tsoa spec-and-routes`
+- **Generate Spec and Routes**: `bun run tsoa spec-and-routes`
 
 ---
+
+## Environment
+
+Copy `.env.example` to `.env` and update the values before starting the app.
 
 ## Database Setup
 
@@ -57,3 +62,4 @@ In the `database` directory, run:
 
 ```bash
 docker-compose up -d
+```
