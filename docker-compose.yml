@@ -1,11 +1,28 @@
-version: "3"
+version: "3.8"
 services:
   app:
     build: .
-    # restart: always
+    depends_on:
+      - db
     ports:
-      - 5000:5000
-    # Dev: run npm build in local
-    # volumes:
-    # - ".:/app"
-    command: "npm run start"
+      - "5000:5000"
+    environment:
+      PORT: "5000"
+      JWT_SECRET: "CHANGE_ME"
+      DATABASE_URL: "postgresql://test:test@db:5432/db_test?schema=public"
+    command: ["bun", "dist/server.js"]
+
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: db_test
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
